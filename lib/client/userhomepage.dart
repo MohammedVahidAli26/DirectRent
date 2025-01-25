@@ -22,17 +22,16 @@ class _UserViewPageState extends State<UserViewPage> {
   final TextEditingController _searchController = TextEditingController();
   String selectedFilter = "";
   String _searchQuery = "";
-  String userName = "User"; 
-  Timer? _debounce; 
+  String userName = "User"; // Default value for user name
+  Timer? _debounce;
 
   // Add a GlobalKey for the Scaffold to control the drawer
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final FocusNode _searchFocusNode = FocusNode(); // FocusNode for the search field
-   
-   
-   
-   Future<void> _refreshProperties() async {
-    // Adding a short delay to simulate a refresh action
+  final FocusNode _searchFocusNode =
+      FocusNode(); // FocusNode for the search field
+
+  Future<void> _refreshProperties() async {
+    // Add a short delay to simulate a refresh action
     await Future.delayed(Duration(seconds: 1));
     setState(() {});
   }
@@ -42,7 +41,9 @@ class _UserViewPageState extends State<UserViewPage> {
     super.initState();
     _searchController.addListener(_onSearchChanged);
     _loadUserName();
-        _searchFocusNode.requestFocus();
+
+    // Set focus explicitly on the TextField when needed
+    _searchFocusNode.requestFocus();
   }
 
   @override
@@ -53,7 +54,7 @@ class _UserViewPageState extends State<UserViewPage> {
     super.dispose();
   }
 
-  //Fetching user's name from SharedPreferences
+  // Function to load the user's name from SharedPreferences
   _loadUserName() async {
     String? savedName = await SharedpreferenceHelper().getUserName();
     if (savedName != null && savedName.isNotEmpty) {
@@ -74,39 +75,39 @@ class _UserViewPageState extends State<UserViewPage> {
   }
 
   Stream<List<QueryDocumentSnapshot>> _getFilteredProperties() {
-  Query query = _firestore.collection('properties');
+    Query query = _firestore.collection('properties');
 
-  // Apply BHK or Rent Range Filter
-  if (selectedFilter.isNotEmpty) {
-    if (selectedFilter == "1 BHK") {
-      query = query.where('bhk', isEqualTo: "1 BHK");
-    } else if (selectedFilter == "2 BHK") {
-      query = query.where('bhk', isEqualTo: "2 BHK");
-    } else if (selectedFilter == "5K-10K") {
-      query = query
-          .where('rent', isGreaterThanOrEqualTo: "5000")
-          .where('rent', isLessThanOrEqualTo: "10000");
-    } else if (selectedFilter == "10K-15K") {
-      query = query
-          .where('rent', isGreaterThanOrEqualTo: 10000)
-          .where('rent', isLessThanOrEqualTo: 15000);
+    // Apply BHK or Rent Range Filter
+    if (selectedFilter.isNotEmpty) {
+      if (selectedFilter == "1 BHK") {
+        query = query.where('bhk', isEqualTo: "1 BHK");
+      } else if (selectedFilter == "2 BHK") {
+        query = query.where('bhk', isEqualTo: "2 BHK");
+      } else if (selectedFilter == "5K-10K") {
+        query = query
+            .where('rent', isGreaterThanOrEqualTo: "5000")
+            .where('rent', isLessThanOrEqualTo: "10000");
+      } else if (selectedFilter == "10K-15K") {
+        query = query
+            .where('rent', isGreaterThanOrEqualTo: 10000)
+            .where('rent', isLessThanOrEqualTo: 15000);
+      }
     }
+
+    // Filter locally for the search query
+    return query.snapshots().map((snapshot) {
+      if (_searchQuery.isEmpty) {
+        return snapshot.docs;
+      }
+
+      return snapshot.docs.where((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        final name = (data['name'] ?? '').toString().toLowerCase();
+        final area = (data['area'] ?? '').toString().toLowerCase();
+        return name.contains(_searchQuery) || area.contains(_searchQuery);
+      }).toList();
+    });
   }
-
-  // Filter locally for the search query
-  return query.snapshots().map((snapshot) {
-    if (_searchQuery.isEmpty) {
-      return snapshot.docs;
-    }
-
-    return snapshot.docs.where((doc) {
-      final data = doc.data() as Map<String, dynamic>;
-      final name = (data['name'] ?? '').toString().toLowerCase();
-      final area = (data['area'] ?? '').toString().toLowerCase();
-      return name.contains(_searchQuery) || area.contains(_searchQuery);
-    }).toList();
-  });
-}
 
   @override
   Widget build(BuildContext context) {
@@ -119,13 +120,14 @@ class _UserViewPageState extends State<UserViewPage> {
       drawer: Drawerpage(),
       body: Column(
         children: [
+          // Top Container with black background
           Container(
-            height: MediaQuery.of(context).size.height * 0.40,
+            height: MediaQuery.of(context).size.height * 0.35,
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
               ),
             ),
             child: Stack(
@@ -140,9 +142,9 @@ class _UserViewPageState extends State<UserViewPage> {
                     },
                   ),
                 ),
-                 Positioned(
+                Positioned(
                   left: MediaQuery.of(context).size.width * 0.09,
-                  top: MediaQuery.of(context).size.height * 0.17,
+                  top: MediaQuery.of(context).size.height * 0.15,
                   child: Row(
                     children: [
                       Text(
@@ -167,7 +169,7 @@ class _UserViewPageState extends State<UserViewPage> {
                             ),
                           ],
                           totalRepeatCount: 1000,
-                          isRepeatingAnimation: true, 
+                          isRepeatingAnimation: true, // Loop the animation
                         ),
                       ),
                     ],
@@ -175,7 +177,7 @@ class _UserViewPageState extends State<UserViewPage> {
                 ),
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.09,
-                  top: MediaQuery.of(context).size.height * 0.21,
+                  top: MediaQuery.of(context).size.height * 0.19,
                   child: Text(
                     "Hunting Homes? We're Here to Help! ",
                     overflow: TextOverflow.clip,
@@ -186,10 +188,9 @@ class _UserViewPageState extends State<UserViewPage> {
                     ),
                   ),
                 ),
-                
                 Positioned(
                   left: MediaQuery.of(context).size.width * 0.05,
-                  top: MediaQuery.of(context).size.height * 0.25,
+                  top: MediaQuery.of(context).size.height * 0.23,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: Card(
@@ -200,13 +201,13 @@ class _UserViewPageState extends State<UserViewPage> {
                       child: TextField(
                         controller: _searchController,
                         focusNode: _searchFocusNode,
-                        readOnly: true, 
+                        readOnly: true, // Connect the FocusNode here
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  Searchview(initialQuery: _searchController.text),
+                              builder: (context) => Searchview(
+                                  initialQuery: _searchController.text),
                             ),
                           );
                         },
@@ -219,7 +220,8 @@ class _UserViewPageState extends State<UserViewPage> {
                                     setState(() {
                                       _searchController.clear();
                                     });
-                                    FocusScope.of(context).unfocus(); 
+                                    FocusScope.of(context)
+                                        .unfocus(); // Unfocus when cleared
                                   },
                                 )
                               : null,
@@ -229,14 +231,16 @@ class _UserViewPageState extends State<UserViewPage> {
                             fontSize: MediaQuery.of(context).size.width * 0.034,
                           ),
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 14),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 6, vertical: 14),
                         ),
                       ),
                     ),
                   ),
-                ),Positioned(
-                  left: MediaQuery.of(context).size.width * 0.15,
-                  top: MediaQuery.of(context).size.height * 0.35,
+                ),
+                Positioned(
+                  left: MediaQuery.of(context).size.width * 0.22,
+                  top: MediaQuery.of(context).size.height * 0.32,
                   child: Text(
                     "Discover the Perfect Place to Call Home",
                     overflow: TextOverflow.clip,
@@ -248,7 +252,6 @@ class _UserViewPageState extends State<UserViewPage> {
                     ),
                   ),
                 ),
-                
               ],
             ),
           ),
@@ -257,71 +260,78 @@ class _UserViewPageState extends State<UserViewPage> {
               onRefresh: _refreshProperties,
               child: StreamBuilder<List<QueryDocumentSnapshot>>(
                 stream: _getFilteredProperties(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-                if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
+                  if (snapshot.hasError) {
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  }
 
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No properties available.'));
-                }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                        child: Text('No properties available.'));
+                  }
 
-                final properties = snapshot.data!;
+                  final properties = snapshot.data!;
 
-                return ListView.builder(
-                  padding: const EdgeInsets.all(10.0),
-                  itemCount: properties.length,
-                  itemBuilder: (context, index) {
-                    final property = properties[index];
-                    final data = property.data() as Map<String, dynamic>;
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: properties.length,
+                    itemBuilder: (context, index) {
+                      final property = properties[index];
+                      final data = property.data() as Map<String, dynamic>;
 
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) =>
-                                PropertyDetailsPage(propertyData: data),
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                              const begin = Offset(0.0, 1.0);
-                              const end = Offset.zero;
-                              const curve = Curves.easeInOut;
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      PropertyDetailsPage(propertyData: data),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                const begin = Offset(0.0, 1.0);
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
 
-                              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                              var offsetAnimation = animation.drive(tween);
+                                var tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: curve));
+                                var offsetAnimation = animation.drive(tween);
 
-                              return SlideTransition(
-                                position: offsetAnimation,
-                                child: child,
-                              );
-                            },
-                          ),
-                        );
-                      },
-                      child: _buildPropertyCard(data, screenWidth, screenHeight),
-                    );
-                  },
-                );
-              },
+                                return SlideTransition(
+                                  position: offsetAnimation,
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        child:
+                            _buildPropertyCard(data, screenWidth, screenHeight),
+                      );
+                    },
+                  );
+                },
+              ),
             ),
-          ),)
+          )
         ],
       ),
     );
   }
 
-  Widget _buildPropertyCard(Map<String, dynamic> data, double screenWidth, double screenHeight) {
+  Widget _buildPropertyCard(
+      Map<String, dynamic> data, double screenWidth, double screenHeight) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+          topLeft: Radius.circular(5),
+          topRight: Radius.circular(5),
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
         ),
       ),
       elevation: 10,
@@ -349,7 +359,7 @@ class _UserViewPageState extends State<UserViewPage> {
                   ),
                 ),
                 Text(
-                  '${data['bhk'] ?? ''} BHK',
+                  '${data['bhk'] ?? ''}',
                   style: GoogleFonts.poppins(
                     fontSize: screenWidth * 0.035,
                     fontWeight: FontWeight.w400,
@@ -373,12 +383,14 @@ class _UserViewPageState extends State<UserViewPage> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Icon(Icons.location_on, size: screenWidth * 0.05, color: Colors.purple),
+                    Icon(Icons.location_on,
+                        size: screenWidth * 0.05, color: Colors.purple),
                   ],
                 ),
                 Row(
                   children: [
-                    Icon(Icons.currency_rupee, size: screenWidth * 0.05, color: Colors.pink),
+                    Icon(Icons.currency_rupee,
+                        size: screenWidth * 0.05, color: Colors.pink),
                     const SizedBox(width: 5),
                     Text(
                       '${data['rent'] ?? ''}',
@@ -396,6 +408,4 @@ class _UserViewPageState extends State<UserViewPage> {
       ),
     );
   }
-
-
 }
