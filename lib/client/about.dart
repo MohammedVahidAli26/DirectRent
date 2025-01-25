@@ -23,12 +23,12 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // App logo (optional)
+              
               Center(
                 child: Image.asset(
                   width: 250,
                 
-                  'assets/images/logo3.png', // You can use your app's logo here
+                  'assets/images/logo3.png', 
                   height: 250,
                 ),
               ),
@@ -101,11 +101,11 @@ class AboutPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
         
-              // A call to action button (optional)
+             
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // You can navigate to other screens here
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.pink, // Button color
