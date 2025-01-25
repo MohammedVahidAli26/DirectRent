@@ -48,7 +48,7 @@ class _PropertyDetailsPageState extends State<PropertyDetailsPage> {
   final location = widget.propertyData['area'] ?? 'N/A';
   final bhk = widget.propertyData['bhk'] ?? 'N/A';
   final List<dynamic> images = widget.propertyData['images'] ?? [];
-  final appLink = 'https://yourapp.link'; // Replace with your actual app link.
+  final appLink = 'https://directrent.com';
 
   final shareContent = '''
 Property Name: $name
@@ -61,7 +61,6 @@ Check out this property on our app: $appLink
 
   if (images.isNotEmpty) {
     try {
-      // Download the image to a local file
       final uri = Uri.parse(images[0]);
       final response = await http.get(uri);
 
@@ -74,7 +73,7 @@ Check out this property on our app: $appLink
         // Convert File to XFile
         final xFile = XFile(file.path);
 
-        // Share the content with the image
+        // Sharing the content with the image
         Share.shareXFiles([xFile], text: shareContent);
         return;
       }
@@ -259,7 +258,7 @@ Check out this property on our app: $appLink
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-  height: MediaQuery.of(context).size.height * 0.02, // Adjust the multiplier as needed
+  height: MediaQuery.of(context).size.height * 0.02, 
 ),
 
                 _buildDetailRow(
@@ -273,7 +272,7 @@ Check out this property on our app: $appLink
                   leftPadding: 16.0,
                 ),
 SizedBox(
-  height: MediaQuery.of(context).size.height * 0.02, // Adjust the multiplier as needed
+  height: MediaQuery.of(context).size.height * 0.02, 
 ),                _buildDetailRow(
                   Icons.timelapse,
                   'Deposit Re-payment',
@@ -285,7 +284,7 @@ SizedBox(
                   leftPadding: 16.0,
                 ),
                 SizedBox(
-  height: MediaQuery.of(context).size.height * 0.02, // Adjust the multiplier as needed
+  height: MediaQuery.of(context).size.height * 0.02,
 ),
                 GestureDetector(
                   onTap: () {
