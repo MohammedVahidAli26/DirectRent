@@ -60,7 +60,7 @@ class _Signup extends State<Signup> {
     );
 
     // Generate a random ID for the user
-    String userId = randomAlpha(10);  // Use random_alpha package here
+    String userId = randomAlpha(10);  
     
     await SharedpreferenceHelper().saveUserId(userId);
     await SharedpreferenceHelper().saveUserEmail(_emailController.text);
@@ -78,10 +78,7 @@ class _Signup extends State<Signup> {
     };
     await DatabaseMethods().addUserDetails(userData, userId);
 
-    // Optionally, store user data in Firestore (uncomment if using Firestore)
-    // FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set(userData);
-
-    // Navigate to the Login page after successful registration
+   
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => Sampleloginui()),
@@ -89,7 +86,6 @@ class _Signup extends State<Signup> {
 
     // Show success dialog after successful sign-up
     showDialog(
-      // ignore: use_build_context_synchronously
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -99,7 +95,7 @@ class _Signup extends State<Signup> {
             TextButton(
               child: Text("OK"),
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop();
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => Sampleloginui()),
@@ -166,7 +162,7 @@ class _Signup extends State<Signup> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                       child: Row(
                         children: [
-                          SizedBox(width: 10), // Space between Icon and TextField
+                          SizedBox(width: 10), 
                           Expanded(
                             child: TextFormField(
                               controller: _nameController,
@@ -186,7 +182,7 @@ class _Signup extends State<Signup> {
                         ),
                         
                       ),
-                      Icon(Icons.person, color: Colors.grey), // Email Icon
+                      Icon(Icons.person, color: Colors.grey),
 
                         ],
                     ),)),
@@ -201,7 +197,7 @@ class _Signup extends State<Signup> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                       child: Row(
                         children: [
-                          SizedBox(width: 10), // Space between Icon and TextField
+                          SizedBox(width: 10),
                           Expanded(
                             child: TextFormField(
                               controller: _emailController,
@@ -210,7 +206,6 @@ class _Signup extends State<Signup> {
                                 hintText: 'Email',
                                 hintStyle:  GoogleFonts.poppins(color: Colors.grey.withOpacity(0.5), fontSize: MediaQuery.of(context).size.width * 0.04),
                                 border: InputBorder.none,
-                                // Background color for the TextField
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -220,7 +215,7 @@ class _Signup extends State<Signup> {
                               },
                             ),
                           ),
-                          Icon(Icons.email, color: Colors.grey), // Email Icon
+                          Icon(Icons.email, color: Colors.grey), 
 
                         ],
                       ),
@@ -237,7 +232,7 @@ class _Signup extends State<Signup> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                       child: Row(
                         children: [
-                          SizedBox(width: 10), // Space between Icon and TextField
+                          SizedBox(width: 10),
                           Expanded(
                             child: TextFormField(
                               controller: _passwordController,
@@ -245,7 +240,6 @@ class _Signup extends State<Signup> {
                                 hintText: 'Passowrd',
                                 hintStyle:  GoogleFonts.poppins(color: Colors.grey.withOpacity(0.5), fontSize: MediaQuery.of(context).size.width * 0.04),
                                 border: InputBorder.none,
-                                // Background color for the TextField
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -256,7 +250,7 @@ class _Signup extends State<Signup> {
                             ),
                             
                           ),
-                          Icon(Icons.lock, color: Colors.grey), // Email Icon
+                          Icon(Icons.lock, color: Colors.grey), 
 
                         ],
                       ),
