@@ -98,8 +98,8 @@ class _SampleloginuiState extends State<Sampleloginui> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                       child: Row(
                         children: [
-                          Icon(Icons.email, color: Colors.grey,size: 18,), // Email Icon
-                          SizedBox(width: 16), // Space between Icon and TextField
+                          Icon(Icons.email, color: Colors.grey,size: 18,), 
+                          SizedBox(width: 16), 
                           Expanded(
                             child: TextFormField(
                               controller: emailController,
@@ -109,7 +109,7 @@ class _SampleloginuiState extends State<Sampleloginui> {
                                 hintStyle: TextStyle(color: Colors.grey,fontSize: 15),
                                 border: InputBorder.none,
                                 
-                                // Background color for the TextField
+                                
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -134,8 +134,8 @@ class _SampleloginuiState extends State<Sampleloginui> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 1.0),
                       child: Row(
                         children: [
-                          Icon(Icons.lock, color: Colors.grey,size: 18,), // Email Icon
-                          SizedBox(width: 16), // Space between Icon and TextField
+                          Icon(Icons.lock, color: Colors.grey,size: 18,), 
+                          SizedBox(width: 16), 
                           Expanded(
                             child: TextFormField(
                               controller: passwordController,
@@ -144,7 +144,7 @@ class _SampleloginuiState extends State<Sampleloginui> {
                                 hintStyle: TextStyle(color: Colors.grey,fontSize: 15),
                                 border: InputBorder.none,
                                 
-                                // Background color for the TextField
+                               
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
