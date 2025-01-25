@@ -22,7 +22,7 @@ class _UserViewPageState extends State<UserViewPage> {
   final TextEditingController _searchController = TextEditingController();
   String selectedFilter = "";
   String _searchQuery = "";
-  String userName = "User"; // Default value for user name
+  String userName = "User"; 
   Timer? _debounce; 
 
   // Add a GlobalKey for the Scaffold to control the drawer
@@ -32,7 +32,7 @@ class _UserViewPageState extends State<UserViewPage> {
    
    
    Future<void> _refreshProperties() async {
-    // Add a short delay to simulate a refresh action
+    // Adding a short delay to simulate a refresh action
     await Future.delayed(Duration(seconds: 1));
     setState(() {});
   }
@@ -42,9 +42,7 @@ class _UserViewPageState extends State<UserViewPage> {
     super.initState();
     _searchController.addListener(_onSearchChanged);
     _loadUserName();
-    
-    // Set focus explicitly on the TextField when needed
-    _searchFocusNode.requestFocus();
+        _searchFocusNode.requestFocus();
   }
 
   @override
@@ -55,7 +53,7 @@ class _UserViewPageState extends State<UserViewPage> {
     super.dispose();
   }
 
-  // Function to load the user's name from SharedPreferences
+  //Fetching user's name from SharedPreferences
   _loadUserName() async {
     String? savedName = await SharedpreferenceHelper().getUserName();
     if (savedName != null && savedName.isNotEmpty) {
@@ -121,7 +119,6 @@ class _UserViewPageState extends State<UserViewPage> {
       drawer: Drawerpage(),
       body: Column(
         children: [
-          // Top Container with black background
           Container(
             height: MediaQuery.of(context).size.height * 0.40,
             decoration: BoxDecoration(
@@ -170,7 +167,7 @@ class _UserViewPageState extends State<UserViewPage> {
                             ),
                           ],
                           totalRepeatCount: 1000,
-                          isRepeatingAnimation: true,  // Loop the animation
+                          isRepeatingAnimation: true, 
                         ),
                       ),
                     ],
@@ -203,7 +200,7 @@ class _UserViewPageState extends State<UserViewPage> {
                       child: TextField(
                         controller: _searchController,
                         focusNode: _searchFocusNode,
-                        readOnly: true, // Connect the FocusNode here
+                        readOnly: true, 
                         onTap: () {
                           Navigator.push(
                             context,
@@ -222,7 +219,7 @@ class _UserViewPageState extends State<UserViewPage> {
                                     setState(() {
                                       _searchController.clear();
                                     });
-                                    FocusScope.of(context).unfocus(); // Unfocus when cleared
+                                    FocusScope.of(context).unfocus(); 
                                   },
                                 )
                               : null,
