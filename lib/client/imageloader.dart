@@ -47,7 +47,7 @@ class _ImageLoaderState extends State<ImageLoader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[200], // Adds a background color to differentiate from white
+      color: Colors.grey[200], 
       width: widget.screenWidth,
       height: widget.screenHeight * 0.2,
       child: isConnected
