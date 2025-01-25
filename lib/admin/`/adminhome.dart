@@ -36,7 +36,6 @@ class _AdminHomePageState extends State<AdminHomePage> {
   Future<void> selectImages() async {
     try {
       final images = await _imagePicker.pickMultiImage();
-      // ignore: unnecessary_null_comparison
       if (images != null) {
         setState(() {
           selectedImages = images.map((img) => File(img.path)).toList();
@@ -82,7 +81,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
       isUploading = true;
     });
 
-    String imgurClientId = '459552bb172ce03'; // Replace with your Imgur client ID
+    String imgurClientId = '459552bb172ce03'; 
     List<String> imageUrls = [];
 
     try {
@@ -233,7 +232,7 @@ class _AdminHomePageState extends State<AdminHomePage> {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context); 
               },
             ),
             ListTile(
