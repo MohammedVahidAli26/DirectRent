@@ -62,14 +62,14 @@ class _DrawerpageState extends State<Drawerpage> {
                                         child: Column(
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width *0.8, // Desired width
+                    width: MediaQuery.of(context).size.width *0.8,
                     height:MediaQuery.of(context).size.width *0.08, 
                     decoration: BoxDecoration(
-                      shape: BoxShape.rectangle, // Keeps the image in its original shape
-                      borderRadius: BorderRadius.circular(50), // Optional: Rounded corners
+                      shape: BoxShape.rectangle, 
+                      borderRadius: BorderRadius.circular(50), 
                       image: DecorationImage(
                         image: AssetImage('assets/images/user.png'),
-                        fit: BoxFit.contain, // Ensures the full image is visible
+                        fit: BoxFit.contain, 
                       ),
                     ),
                   ),
@@ -92,7 +92,6 @@ SizedBox(height: 12,),
             leading: Icon(Icons.home),
             title: Text('Home'),
             onTap: () {
-              // Navigate to the home screen
               Navigator.pop(context);
             },
           ),
@@ -100,7 +99,6 @@ SizedBox(height: 12,),
             leading: Icon(Icons.info),
             title: Text('About'),
             onTap: () {
-              // Navigate to about page
             Navigator.push(
   context,
   MaterialPageRoute(builder: (context) => AboutPage()),
@@ -112,11 +110,9 @@ SizedBox(height: 12,),
             leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () {
-              // Navigate to settings screen
              signOut();
             },
           ),
-          // Add other ListTiles for more navigation options
         ],
       ),
     );
