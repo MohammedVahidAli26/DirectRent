@@ -30,7 +30,7 @@ class _UploadedPropertiesPageState extends State<UploadedPropertiesPage> {
       );
     } finally {
       setState(() {
-        _isUploading = false; // Hide loading indicator
+        _isUploading = false; 
       });
     }
   }
