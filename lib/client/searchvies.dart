@@ -15,7 +15,7 @@ class Searchview extends StatefulWidget {
 
 class _SearchviewState extends State<Searchview> {
   late String searchQuery;
-  double _maxRent = 30000; // Single slider for max rent
+  double _maxRent = 30000; 
 
   @override
   void initState() {
@@ -204,7 +204,7 @@ class _SearchviewState extends State<Searchview> {
             ImageLoader(
               data: data,
               screenWidth: screenWidth,
-              screenHeight: screenWidth * 2.5, // Adjust height as needed
+              screenHeight: screenWidth * 2.5, 
             ),
             Padding(
               padding: const EdgeInsets.all(12),
